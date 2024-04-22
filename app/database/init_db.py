@@ -1,7 +1,9 @@
 import sys
 
 import aiosqlite
+
 from aiosqlite import Cursor
+
 from app.database.database_functions import execute, fetch_one_row_data
 from app.logger import logger
 
@@ -59,7 +61,8 @@ async def init_db() -> None:
                               """
             )
 
-            check = await fetch_one_row_data("SELECT * FROM lottery WHERE id = '1'")  # Проверяем, есть ли уже созданный ранее розыгрыш
+            check = await fetch_one_row_data(
+                "SELECT * FROM lottery WHERE id = '1'")  # Проверяем, есть ли уже созданный ранее розыгрыш
 
             if check is None:  # Если нет, то создаем его, дав флаг 0, то есть, сделва его сразу не активным
                 await execute("INSERT INTO lottery(id, flag) VALUES ('1', '0')")
